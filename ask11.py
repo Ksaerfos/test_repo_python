@@ -1,0 +1,41 @@
+import ast
+import json
+
+def get_all_values(nested_dictionaries, keys_list) :
+    for key, value in nested_dictionaries.items() :
+        if type(value) is dict :
+            get_all_values(value,keys_list)
+        else :
+            keys_list.append(key)
+
+
+
+
+def find_key_with_max_appearance(key_list) :
+    max_key = ""
+    max_no = 0
+    for i in key_list :
+        cnt = 0
+        for j in range(0,len(key_list)) :
+            if i == key_list[j] :
+                cnt = cnt + 1
+        if cnt > max_no :
+            max_no = cnt
+            max_key = 1
+    return max_key, max_no
+
+
+f = open("dict.txt", "r")
+key_list = []
+strg = f.read()
+
+nested_dictionaries= eval(strg)
+print(nested_dictionaries)
+get_all_values(nested_dictionaries, key_list)
+print("extract keys are: ")
+print(key_list)
+m_key, m_no = find_key_with_max_appearance( key_list )
+print("to pio dimofiles klidh einai : " + str(m_key))
+print("Kai to plithos toy einai : " + str(m_no))
+f.close()
+
